@@ -2,46 +2,51 @@ import React, { useState } from 'react'
 import { useUserAuth } from '../firebase/UserAuthContext'
 import { useNavigate } from 'react-router-dom'
 
-function Login(){
+function Signup() {
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const { logIn } = useUserAuth()
-    const navigate = useNavigate()
+    const [password, setPassword] = useState('')
+    const { signUp } = useUserAuth()
+    let navigate = useNavigate()
 
     async function handleSubmit(e){
         e.preventDefault()
         setError('')
         try{
-            await logIn(email, password)
-            navigate('/dashboard')
-        } catch(err) {
+            await signUp(email, password)
+            navigate('/')
+        } catch(err){
             setError(err.message)
             console.log(err.message)
+            alert(err.message)
         }
     }
 
     return(
         <>
-            <h2>Firebase Auth Login</h2>
+            <h2>Firebase Auth Signup</h2>
             <form onSubmit={handleSubmit}>
-                <input 
+                <input
                     type='text'
                     placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input 
+                <input
                     type='password'
                     placeholder='Password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type='submit' >Login</button>
+                <button type='submit' >
+                    Signup
+                </button>
             </form>
-            <button onClick={() => navigate('/signup')} >Sign Up</button>
+            <button onClick={() => navigate('/')} >
+                Already have any account?
+            </button>
         </>
     )
-}
+} 
 
-export default Login
+export default Signup
