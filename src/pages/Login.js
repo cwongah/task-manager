@@ -1,25 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../firebase/UserAuthContext'
 import { useNavigate } from 'react-router-dom'
 
 function Login(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
-    const { logIn } = useUserAuth()
+    // const [error, setError] = useState('')
+    const { logIn, user } = useUserAuth()
     const navigate = useNavigate()
 
     async function handleSubmit(e){
         e.preventDefault()
-        setError('')
+        // setError('')
         try{
             await logIn(email, password)
             navigate('/dashboard')
         } catch(err) {
-            setError(err.message)
-            console.log(err.message)
+            // setError(err.message)
+            alert(err.message)
         }
     }
+
+    useEffect(() => {
+        if(user){
+            navigate('/dashboard')
+        }
+    }, [])
 
     return(
         <>

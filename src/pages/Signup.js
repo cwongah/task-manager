@@ -4,20 +4,20 @@ import { useNavigate } from 'react-router-dom'
 
 function Signup() {
     const [email, setEmail] = useState('')
-    const [error, setError] = useState('')
+    // const [error, setError] = useState('')
     const [password, setPassword] = useState('')
     const { signUp } = useUserAuth()
     let navigate = useNavigate()
 
     async function handleSubmit(e){
         e.preventDefault()
-        setError('')
+        // setError('')
         try{
             await signUp(email, password)
             navigate('/')
         } catch(err){
-            setError(err.message)
-            console.log(err.message)
+            // setError(err.message)
+            // console.log(err.message)
             alert(err.message)
         }
     }
