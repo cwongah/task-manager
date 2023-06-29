@@ -9,6 +9,8 @@ function Login(){
     const { logIn, user } = useUserAuth()
     const navigate = useNavigate()
 
+    // console.log(user)
+
     async function handleSubmit(e){
         e.preventDefault()
         // setError('')
@@ -21,11 +23,11 @@ function Login(){
         }
     }
 
-    useEffect(() => {
-        if(user){
-            navigate('/dashboard')
-        }
-    }, [])
+    // useEffect(() => {
+    //     if(user){
+    //         navigate('/dashboard')
+    //     }
+    // }, [user])
 
     return(
         <>

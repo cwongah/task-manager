@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { addTask } from "../firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 function TaskCreation(){
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState()
     const [priority, setPriority] = useState(1)
+    const navigate = useNavigate()
 
     const { user } = useUserAuth()
 
@@ -27,6 +29,8 @@ function TaskCreation(){
             case 'Urgent':
                 setPriority(0)
                 break
+            default:
+                setPriority(1)
         }
     }
 
@@ -34,6 +38,8 @@ function TaskCreation(){
         e.preventDefault()
         console.log('submit')
         addTask(user.uid, title, desc, dueDate, priority)
+        navigate('/dashboard')
+
     }
 
     return(
