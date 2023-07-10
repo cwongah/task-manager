@@ -3,7 +3,7 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import { addTask } from "../firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-function TaskCreation({subjects}){
+function TaskCreation({subjects, setTcPop}){
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState()
@@ -93,6 +93,7 @@ function TaskCreation({subjects}){
                     })}
                 </select>
                 <button type="submit">Submit</button>
+                <button onClick={()=>setTcPop(false)}>Close</button>
             </form>
         </>
     )

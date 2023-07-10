@@ -39,8 +39,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Login setIsLogin={setIsLogin} />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} />
+            <Route path='/dashboard' element={<Dashboard subjects={subjects} />} />
+            {/* <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} /> */}
             <Route path='/new-subject' element={<SubjectCreation />} />
             <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} />} />
           </Routes>
