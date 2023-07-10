@@ -47,6 +47,9 @@ function Dashboard(){
             <button onClick={()=>navigate('/new-task')}>
                 Create Task
             </button>
+            <button onClick={()=>navigate('/new-subject')}>
+                Create Subject
+            </button>
             {tasks.map((task) => (
                 <div key={task.id}>
                     {task.title} {task.desc}

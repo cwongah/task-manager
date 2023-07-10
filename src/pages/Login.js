@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../firebase/UserAuthContext'
 import { useNavigate } from 'react-router-dom'
 
-function Login(){
+function Login({setIsLogin}){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     // const [error, setError] = useState('')
@@ -16,6 +16,7 @@ function Login(){
         // setError('')
         try{
             await logIn(email, password)
+            setIsLogin(true)
             navigate('/dashboard')
         } catch(err) {
             // setError(err.message)

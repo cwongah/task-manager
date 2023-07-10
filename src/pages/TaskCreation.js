@@ -3,20 +3,16 @@ import { useUserAuth } from "../firebase/UserAuthContext";
 import { addTask } from "../firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-function TaskCreation(){
+function TaskCreation({subjects}){
     const [title, setTitle] = useState('')
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState()
     const [priority, setPriority] = useState(1)
+    const [isCompleted, setIsCompleted] = useState(false)
+    const [subjectId, setSubjectId] = useState('')
     const navigate = useNavigate()
 
     const { user } = useUserAuth()
-
-    console.log(title)
-    console.log(desc)
-    console.log(dueDate)
-    console.log(priority)
-    console.log(user)
 
     function handlePriority(e){
         switch(e.target.value){
@@ -34,10 +30,14 @@ function TaskCreation(){
         }
     }
 
+    function handleSubjectChange(e){
+        setSubjectId(subjects.filter(subject => subject.title === e.target.value)[0].id)
+    }
+
     function handleSubmit(e){
         e.preventDefault()
         console.log('submit')
-        addTask(user.uid, title, desc, dueDate, priority)
+        addTask(user.uid, title, desc, dueDate, priority, isCompleted, subjectId)
         navigate('/dashboard')
 
     }
@@ -79,6 +79,18 @@ function TaskCreation(){
                     <option>
                         Urgent
                     </option>
+                </select>
+                <select onChange={(e)=>handleSubjectChange(e)}>
+                    <option disabled selected>
+                        Subject
+                    </option>
+                    {subjects.map((subject)=>{
+                       return(
+                            <option key={subject.id}>
+                                {subject.title}
+                            </option>
+                       ) 
+                    })}
                 </select>
                 <button type="submit">Submit</button>
             </form>
