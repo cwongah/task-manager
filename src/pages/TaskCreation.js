@@ -44,57 +44,61 @@ function TaskCreation({subjects, setTcPop}){
 
     return(
         <>
-            <div>
-                Task Creator
-            </div>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Task Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Description"
-                    value={desc}
-                    onChange={(e) => setDesc(e.target.value)}
-                />
-                <input
-                    type="datetime-local"
-                    // placeholder="Due Date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                />
-                <select onChange={handlePriority}>
-                    <option disabled selected>
-                        Priority
-                    </option>
-                    <option>
-                        Low Priority
-                    </option>
-                    <option>
-                        Regular
-                    </option>
-                    <option>
-                        Urgent
-                    </option>
-                </select>
-                <select onChange={(e)=>handleSubjectChange(e)}>
-                    <option disabled selected>
-                        Subject
-                    </option>
-                    {subjects.map((subject)=>{
-                       return(
-                            <option key={subject.id}>
-                                {subject.title}
+            <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg opacity-50 flex justify-center items-center">
+                <div className="h-3/4 bg-white rounded-lg p-6 max-w-6xl w-full lg:w-3/4 overflow-y-scroll">
+                    <div>
+                        Task Creator
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Task Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Description"
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                        />
+                        <input
+                            type="datetime-local"
+                            // placeholder="Due Date"
+                            value={dueDate}
+                            onChange={(e) => setDueDate(e.target.value)}
+                        />
+                        <select onChange={handlePriority}>
+                            <option disabled selected>
+                                Priority
                             </option>
-                       ) 
-                    })}
-                </select>
-                <button type="submit">Submit</button>
-                <button onClick={()=>setTcPop(false)}>Close</button>
-            </form>
+                            <option>
+                                Low Priority
+                            </option>
+                            <option>
+                                Regular
+                            </option>
+                            <option>
+                                Urgent
+                            </option>
+                        </select>
+                        <select onChange={(e)=>handleSubjectChange(e)}>
+                            <option disabled selected>
+                                Subject
+                            </option>
+                            {subjects.map((subject)=>{
+                            return(
+                                    <option key={subject.id}>
+                                        {subject.title}
+                                    </option>
+                            ) 
+                            })}
+                        </select>
+                        <button type="submit">Submit</button>
+                        <button onClick={()=>setTcPop(false)}>Close</button>
+                    </form>
+                </div>
+            </div>
         </>
     )
 }

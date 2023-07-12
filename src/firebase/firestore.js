@@ -45,3 +45,19 @@ export async function getSubjects(uid, setSubject){
     })
     return unsubscribe
 }
+
+export async function getTasksBySubject(sid, setTasksBySubject){
+    const tasksBySubjectQuery = query(collection(db, TASKS_COLLECTION), where('subjectId', '==', sid))
+    const unsubscribe = onSnapshot(tasksBySubjectQuery, async (snapshot) => {
+        let allTasksBySubject = []
+        for(const documentSnapshot of snapshot.docs){
+            const task = documentSnapshot.data()
+            allTasksBySubject.push({
+                ...task,
+                id: documentSnapshot.id
+            })
+        }
+        setTasksBySubject(allTasksBySubject)
+    })
+    return unsubscribe
+}
