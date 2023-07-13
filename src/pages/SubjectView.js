@@ -13,6 +13,11 @@ function SubjectView({currentSubject}){
     return(
         <div>
             {currentSubject.title}
+            {tasksBySubject.map((task)=>(
+                <div key={task.id}>
+                    {task.title} {task.desc}
+                </div>
+            ))}
         </div>
     )
 }

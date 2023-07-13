@@ -37,7 +37,7 @@ function App() {
             :
             null
           }
-          <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle}  />
+            <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} setIsLogin={setIsLogin} />
           <Routes>
             <Route path='/' element={<Login setIsLogin={setIsLogin} />} />
             <Route path='/signup' element={<Signup />} />

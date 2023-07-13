@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {BiArrowBack} from 'react-icons/bi'
 import { useUserAuth } from "../firebase/UserAuthContext";
-import { getSubjects } from "../firebase/firestore";
+import { getSubjects, addSubject } from "../firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { MdCancel } from 'react-icons/md'
 import { AiFillCheckCircle } from 'react-icons/ai'
@@ -12,7 +12,7 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
     const [newSub, setNewSub] = useState('')
 
     const { user } = useUserAuth()
-    console.log(newSub)
+    // console.log(user)
 
     function handleBackClick(){
         setSidebarToggle(false)
@@ -22,11 +22,19 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
     function handleSubjectClick(subject){
         setCurrentSubject(subject)
         setSidebarToggle(false)
+        setIsNewSub(false)
         navigate(`/subject/${subject.title}`)
+    }
+
+    function handleDashboardCLick(){
+        setSidebarToggle(false)
+        setIsNewSub(false)
+        navigate('/dashboard')
     }
     
     function handleSubmit(e){
         e.preventDefault()
+        addSubject(user.uid, newSub)
         console.log(newSub)
     }
     
@@ -55,24 +63,27 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
                     </div>
                 ))}
                 <div className="border-t border-gray-500 my-3 py-3">
-                    {!isNewSub ? (
-                        <button onClick={()=>setIsNewSub(true)}>Create Subject</button>
-                        ):
-                        <div className="flex">
-                            <form onSubmit={handleSubmit} className="flex items-center">
-                                <input 
-                                    onChange={(e)=>setNewSub(e.target.value)} 
-                                    value={newSub}
-                                    placeholder="New Subject"
-                                    className="w-3/4"
-                                />
-                                <div className="ml-2">
-                                    <button type="submit"><AiFillCheckCircle size={20} color="green"/></button>
-                                    <button onClick={()=>setIsNewSub(false)}><MdCancel size={20} color="red"/></button>
-                                </div>
-                            </form>
-                        </div>
-                    }
+                    <button onClick={handleDashboardCLick}>Dashboard</button>
+                    <div>
+                        {!isNewSub ? (
+                            <button onClick={()=>setIsNewSub(true)}>Create Subject</button>
+                            ):
+                            <div className="flex">
+                                <form onSubmit={handleSubmit} className="flex items-center">
+                                    <input 
+                                        onChange={(e)=>setNewSub(e.target.value)} 
+                                        value={newSub}
+                                        placeholder="New Subject"
+                                        className="w-3/4"
+                                    />
+                                    <div className="ml-2">
+                                        <button type="submit"><AiFillCheckCircle size={20} color="green"/></button>
+                                        <button onClick={()=>setIsNewSub(false)}><MdCancel size={20} color="red"/></button>
+                                    </div>
+                                </form>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

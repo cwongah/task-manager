@@ -30,7 +30,7 @@ export async function getTasks(uid, setTask){
     return unsubscribe
 }
 
-export async function getSubjects(uid, setSubject){
+export async function getSubjects(uid, setSubjects){
     const subjectsQuery = query(collection(db, SUBJECTS_COLLECTION), where('uid', '==', uid))
     const unsubscribe = onSnapshot(subjectsQuery, async (snapshot) => {
         let allSubjects = []
@@ -41,13 +41,13 @@ export async function getSubjects(uid, setSubject){
                 id: documentSnapshot.id
             })
         }
-        setSubject(allSubjects)
+        setSubjects(allSubjects)
     })
     return unsubscribe
 }
 
 export async function getTasksBySubject(sid, setTasksBySubject){
-    const tasksBySubjectQuery = query(collection(db, TASKS_COLLECTION), where('subjectId', '==', sid))
+    const tasksBySubjectQuery = query(collection(db, TASKS_COLLECTION), where('subjectId', '==', sid), orderBy('priority'), orderBy('dueDate'))
     const unsubscribe = onSnapshot(tasksBySubjectQuery, async (snapshot) => {
         let allTasksBySubject = []
         for(const documentSnapshot of snapshot.docs){
