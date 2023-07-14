@@ -22,7 +22,8 @@ function App() {
   console.log(currentSubject)
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-800'>
+    <div className='min-h-screen bg-black'>
+      {/* bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-800 */}
       <Router>
         <UserAuthContextProvider>
           {isLogin ? 
