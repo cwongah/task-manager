@@ -19,10 +19,10 @@ function App() {
   const [isLogin, setIsLogin] = useState(false)
   const [subjects, setSubjects] = useState([])
 
-  console.log(currentSubject)
+  // console.log(currentSubject)
 
   return (
-    <div className='min-h-screen bg-black'>
+    <div className='min-h-screen bg-gradient-to-br from-[#7AE6C5] via-indigo-600 to-purple-800'>
       {/* bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-800 */}
       <Router>
         <UserAuthContextProvider>
@@ -41,7 +41,7 @@ function App() {
             <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} setIsLogin={setIsLogin} />
           <Routes>
             <Route path='/' element={<Login setIsLogin={setIsLogin} />} />
-            <Route path='/signup' element={<Signup />} />
+            {/* <Route path='/signup' element={<Signup />} /> */}
             <Route path='/dashboard' element={<Dashboard subjects={subjects} />} />
             {/* <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} /> */}
             <Route path='/new-subject' element={<SubjectCreation />} />

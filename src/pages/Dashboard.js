@@ -13,15 +13,6 @@ function Dashboard({subjects}){
     const [scPop, setScPop] = useState(false)
 
     // console.log(tasks)
-    
-    // async function handleLogout(){
-    //     try{
-    //         await logOut()
-    //         navigate('/')
-    //     } catch(error){
-    //         console.log(error.message)
-    //     }
-    // }
 
     useEffect(() => {
         if(!user){
@@ -31,23 +22,12 @@ function Dashboard({subjects}){
 
     useEffect( () => {
         if(user){
-            // setTasks(await getTasks(user.uid))
-            // const unsubscribe = getTasks(user.uid, setTasks)
-            // return () => unsubscribe()
-            // console.log(user.uid)
-            // console.log(typeof(user.uid))
             getTasks(user.uid, setTasks)
         }
     }, [user])
     
     return(
         <>
-            <div>
-                Dashboard
-            </div>
-            {/* <button onClick={handleLogout}>
-                Log Out
-            </button> */}
             <button onClick={()=>setTcPop(true)}>
                 Create Task
             </button>

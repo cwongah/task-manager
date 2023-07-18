@@ -12,6 +12,7 @@ function Navbar({setSidebarToggle, setIsLogin}){
         try{
             await logOut()
             setIsLogin(false)
+            setSidebarToggle(false)
             navigate('/')
         } catch(error){
             alert(error.message)
@@ -20,27 +21,27 @@ function Navbar({setSidebarToggle, setIsLogin}){
 
     return(
         !user ? null :
-            <div className="border-b border-gray-500 py-3 ">
+            <div className="py-3 bg-white bg-opacity-30 ">
                 <div className="flex justify-between items-center">
                     {user ? 
                         <div className="flex items-center">
                             <div className="mr-auto ml-4">
                                 <button onClick={() => setSidebarToggle(true)}>
-                                    <AiOutlineMenu size={30} color="white"/>
+                                    <AiOutlineMenu size={30} color="black"/>
                                 </button>
                             </div>
                         </div>
                         :
                         null
                     }
-                    <div className="text-white text-3xl mx-auto">
+                    <div className=" text-3xl mx-auto">
                         Task Manager
                     </div>
                     {user ? 
                         <div className="flex items-center">
                             <div className="ml-auto mr-4">
                                 <button onClick={handleLogout}>
-                                    <BiLogOut size={30} color="white"/>
+                                    <BiLogOut size={30} color="black"/>
                                 </button>
                             </div>
                         </div>
