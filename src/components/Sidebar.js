@@ -12,9 +12,9 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
     const [newSub, setNewSub] = useState('')
 
     const { user } = useUserAuth()
-    // console.log(user)
 
     function handleBackClick(){
+        setNewSub('')
         setSidebarToggle(false)
         setIsNewSub(false)
     }
@@ -28,14 +28,20 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
 
     function handleDashboardCLick(){
         setSidebarToggle(false)
+        setNewSub('')
         setIsNewSub(false)
         navigate('/dashboard')
     }
     
-    function handleSubmit(e){
+    function handleNewSubSubmit(e){
         e.preventDefault()
         addSubject(user.uid, newSub)
-        console.log(newSub)
+        setNewSub('')
+    }
+
+    function closeNewSub(){
+        setNewSub('')
+        setIsNewSub(false)
     }
     
     useEffect(()=>{
@@ -51,38 +57,68 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
                     sidebarToggle
                         ? "md:left-0 w-full"
                         : "md:left-[-300px] w-0"
-                } transition-all duration-500 ease-in-out md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 overflow-hidden`}
+                } transition-all duration-500 ease-in-out md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 overflow-hidden`}
                 style={{ left: sidebarToggle ? "0" : "-300px" }}
             >
-                <button onClick={handleBackClick}>{<BiArrowBack />}</button>
-                {subjects.map((subject)=>(
-                    <div key={subject.id}>
-                        <button onClick={()=>handleSubjectClick(subject)}>
-                            {subject.title}
+                <div className='min-h-screen bg-gradient-to-bl from-[#7AE6C5] via-indigo-600 to-purple-800'>
+                    <div className=" bg-white bg-opacity-30 min-h-screen p-4 ">
+                        <button onClick={handleBackClick}>
+                            {<BiArrowBack color="white" />}
                         </button>
-                    </div>
-                ))}
-                <div className="border-t border-gray-500 my-3 py-3">
-                    <button onClick={handleDashboardCLick}>Dashboard</button>
-                    <div>
-                        {!isNewSub ? (
-                            <button onClick={()=>setIsNewSub(true)}>Create Subject</button>
-                            ):
-                            <div className="flex">
-                                <form onSubmit={handleSubmit} className="flex items-center">
+                        <div className="border-b border-gray-500 pb-3 grid justify-items-center">
+                            <button 
+                                onClick={handleDashboardCLick}
+                                className=" text-white bg-teal-200 shadow-lg bg-opacity-30 w-3/4 rounded-3xl my-2 py-1"
+                            >
+                                Dashboard
+                            </button>
+                            {!isNewSub ? (
+                                <button 
+                                    onClick={()=>setIsNewSub(true)}
+                                    className=" text-white bg-teal-200 shadow-lg bg-opacity-30 w-3/4 rounded-3xl my-2 py-1"
+                                >
+                                    Create Collection
+                                </button>
+                                ):
+                                <form 
+                                    onSubmit={handleNewSubSubmit} 
+                                    className="flex justify-between items-center bg-teal-200 shadow-lg w-3/4 bg-opacity-30 rounded-3xl my-2 py-1 px-2"
+                                >
                                     <input 
                                         onChange={(e)=>setNewSub(e.target.value)} 
                                         value={newSub}
                                         placeholder="New Subject"
-                                        className="w-3/4"
+                                        className="w-2/3 bg-transparent text-white placeholder-white"
                                     />
-                                    <div className="ml-2">
-                                        <button type="submit"><AiFillCheckCircle size={20} color="green"/></button>
-                                        <button onClick={()=>setIsNewSub(false)}><MdCancel size={20} color="red"/></button>
+                                    <div>
+                                        <button 
+                                            type="submit"
+                                        >
+                                            <AiFillCheckCircle size={20} color="green"/>
+                                        </button>
+                                        <button 
+                                            onClick={closeNewSub}
+                                        >
+                                            <MdCancel size={20} color="red"/>
+                                        </button>
                                     </div>
                                 </form>
-                            </div>
-                        }
+                            }
+                        </div>
+                        <div className="grid justify-items-center font-bold text-2xl text-white my-5">
+                            Your Collections
+                        </div>
+                        <div className="grid justify-items-center">
+                            {subjects.map((subject)=>(
+                                <button
+                                    key={subject.id}
+                                    onClick={()=>handleSubjectClick(subject)}
+                                    className=" text-white bg-teal-200 shadow-lg bg-opacity-30 w-3/4 rounded-3xl my-2 py-1"
+                                >
+                                    {subject.title}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

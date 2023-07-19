@@ -42,11 +42,11 @@ function Login({setIsLogin}){
         setPassword('')
     }
 
-    useEffect(() => {
-        if(user){
-            navigate('/dashboard')
-        }
-    }, [user])
+    // useEffect(() => {
+    //     if(user){
+    //         navigate('/dashboard')
+    //     }
+    // }, [user])
 
     return(
         <>

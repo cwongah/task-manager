@@ -28,17 +28,22 @@ function Dashboard({subjects}){
     
     return(
         <>
+            <div className="p-5">
+                <div className="text-white text-8xl font-bold">
+                    Welcome Back!
+                </div>
+                {tasks.map((task) => (
+                    <div key={task.id}>
+                        {task.title} {task.desc}
+                    </div>
+                ))}
+            </div>
             <button onClick={()=>setTcPop(true)}>
                 Create Task
             </button>
             <button onClick={()=>setScPop(true)}>
                 Create Subject
             </button>
-            {tasks.map((task) => (
-                <div key={task.id}>
-                    {task.title} {task.desc}
-                </div>
-            ))}
             {tcPop ? <TaskCreation subjects={subjects} setTcPop={setTcPop} /> : null}
             {scPop ? <SubjectCreation setScPop={setScPop} /> : null}
         </>
