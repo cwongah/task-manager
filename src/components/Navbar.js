@@ -21,7 +21,7 @@ function Navbar({setSidebarToggle, setIsLogin}){
 
     return(
         !user ? null :
-            <div className="py-3 bg-white bg-opacity-20 ">
+            <div className="py-3 bg-white bg-opacity-20 shadow-xl ">
                 <div className="flex justify-between items-center">
                     {user ? 
                         <div className="flex items-center">
@@ -34,7 +34,7 @@ function Navbar({setSidebarToggle, setIsLogin}){
                         :
                         null
                     }
-                    <div className=" text-3xl text-white mx-auto">
+                    <div className=" text-3xl text-white mx-auto drop-shadow-2xl">
                         Task Manager
                     </div>
                     {user ? 

@@ -53,10 +53,10 @@ function Login({setIsLogin}){
             <div className="bg-[url('./background.jpg')] bg-cover bg-center min-h-screen">
                 <div className='grid grid-cols-7 gap-8 '>
                     <div className='col-span-4'>
-                        <div className='mt-20 ml-20 text-6xl font-extrabold text-white'>
+                        <div className='mt-20 ml-20 text-6xl font-extrabold text-white drop-shadow-2xl'>
                             TaskHarmony
                         </div>
-                        <div className='mt-16 ml-40 text-xl text-black font-bold '>
+                        <div className='mt-16 ml-40 text-xl text-black font-bold drop-shadow-2xl'>
                             Too much going on? Find <span className='underline'>balance</span> in your life.
                         </div>
                     </div>
@@ -66,7 +66,7 @@ function Login({setIsLogin}){
                                 <div className='mt-60'>
                                     <div className='w-full max-w-md bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600  rounded-lg shadow-lg shadow-black p-5 my-10'>
                                         <div className={`${isSignup ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                                            <div className='text-6xl font-bold text-center text-white my-10'>
+                                            <div className='text-6xl font-bold text-center text-white my-10 drop-shadow-xl'>
                                                 Hello!
                                             </div>
                                             <div className='text-xl text-center text-white my-5' >

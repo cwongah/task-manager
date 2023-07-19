@@ -2,15 +2,15 @@
 // import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+// import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-import TaskCreation from './pages/TaskCreation';
-import SubjectCreation from './pages/SubjectCreation';
+// import TaskCreation from './components/TaskCreation';
+import SubjectCreation from './components/SubjectCreation';
 import SubjectView from './pages/SubjectView';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import { UserAuthContextProvider } from './firebase/UserAuthContext';
-import { useUserAuth } from './firebase/UserAuthContext';
+// import { useUserAuth } from './firebase/UserAuthContext';
 import { useState } from 'react';
 
 function App() {
@@ -38,11 +38,11 @@ function App() {
             :
             null
           }
-            <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} setIsLogin={setIsLogin} />
+          <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} setIsLogin={setIsLogin} />
           <Routes>
             <Route path='/' element={<Login setIsLogin={setIsLogin} />} />
             {/* <Route path='/signup' element={<Signup />} /> */}
-            <Route path='/dashboard' element={<Dashboard subjects={subjects} />} />
+            <Route path='/dashboard' element={<Dashboard sidebarToggle={sidebarToggle} subjects={subjects} />} />
             {/* <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} /> */}
             <Route path='/new-subject' element={<SubjectCreation />} />
             <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} />} />

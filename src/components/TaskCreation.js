@@ -12,7 +12,9 @@ function TaskCreation({subjects, setTcPop}){
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [priority, setPriority] = useState(1)
+    const [urgency, setUrgency] = useState('')
     const [subjectId, setSubjectId] = useState('')
+    const [subjectTitle, setSubjectTitle] = useState('')
     const [isNewSubject, setIsNewSubject] = useState(false)
     const [newSubject, setNewSubect] = useState('')
     const navigate = useNavigate()
@@ -27,6 +29,7 @@ function TaskCreation({subjects, setTcPop}){
     console.log(newSubject)
 
     function handlePriority(e){
+        setUrgency(e.target.value)
         switch(e.target.value){
             case 'Low Priority':
                 setPriority(2)
@@ -50,6 +53,7 @@ function TaskCreation({subjects, setTcPop}){
 
     function handleSubjectChange(e){
         setSubjectId(subjects.filter(subject => subject.title === e.target.value)[0].id)
+        setSubjectTitle(subjects.filter(subject => subject.title === e.target.value)[0].title)
     }
 
     function handleSubmit(e){
@@ -58,7 +62,7 @@ function TaskCreation({subjects, setTcPop}){
             alert('Fields missing!')
             return
         }
-        addTask(user.uid, title, desc, dueDate, priority, false, subjectId)
+        addTask(user.uid, title, desc, dueDate, priority, urgency, false, subjectId, subjectTitle)
         setTcPop(false)
     }
 
@@ -99,6 +103,7 @@ function TaskCreation({subjects, setTcPop}){
                                         <input
                                             type="text"
                                             placeholder="Task Title"
+                                            maxLength={50}
                                             value={title}
                                             onChange={(e) => setTitle(e.target.value)}
                                             className="placeholder-white text-3xl text-white bg-transparent border-b border-white pb-1 w-4/5"

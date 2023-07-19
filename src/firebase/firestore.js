@@ -8,8 +8,8 @@ export function addSubject(uid, title){
     addDoc(collection(db, SUBJECTS_COLLECTION), {uid, title})
 }
 
-export function addTask(uid, title, desc, dueDate, priority, isCompleted, subjectId){
-    addDoc(collection(db, TASKS_COLLECTION), {uid, title, desc, dueDate, priority, isCompleted, subjectId})
+export function addTask(uid, title, desc, dueDate, priority, urgency, isCompleted, subjectId, subjectTitle){
+    addDoc(collection(db, TASKS_COLLECTION), {uid, title, desc, dueDate, priority, urgency, isCompleted, subjectId, subjectTitle})
 }
 
 export async function getTasks(uid, setTask){
