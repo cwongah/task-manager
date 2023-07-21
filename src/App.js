@@ -19,7 +19,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false)
   const [subjects, setSubjects] = useState([])
 
-  // console.log(currentSubject)
+  console.log(sidebarToggle)
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-[#7AE6C5] via-indigo-600 to-purple-800'>

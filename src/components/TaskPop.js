@@ -3,6 +3,7 @@ import { FaWindowClose } from 'react-icons/fa'
 import {PiFlagPennantFill} from 'react-icons/pi'
 import { MdCancel } from 'react-icons/md'
 import { AiFillCheckCircle } from 'react-icons/ai'
+import TaskDeletePop from "./TaskDeletePop";
 
 function TaskPop({setTaskPop, task}){
     const [isEdit, setIsEdit] = useState(false)
@@ -11,6 +12,7 @@ function TaskPop({setTaskPop, task}){
     const [editPriority, setEditPriority] = useState(task.priority)
     const [editDesc, setEditDesc]  = useState(task.desc)
     const [editNotes, setEditNotes] = useState('notes')
+    const [isDelete, setIsDelete] = useState(false)
 
     console.log(editTitle)
 
@@ -46,6 +48,10 @@ function TaskPop({setTaskPop, task}){
     function handleEditClick(){
         setIsEdit(true)
     }
+
+    function handleDeleteClick(){
+        setIsDelete(true)
+    }
     
     function handleCancelClick(){
         setIsEdit(false)
@@ -56,9 +62,13 @@ function TaskPop({setTaskPop, task}){
         setEditNotes('notes')
     }
 
+    function handleEditSave(){
+        setTaskPop(false)
+    }
+
         return(
         <>
-            <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center">
+            <div className={isDelete ? "fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center blur-md" : "fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center"}>
                 <div className="h-2/3 bg-white bg-opacity-30 rounded-lg p-6 max-w-6xl w-full lg:w-4/5">
                     <div className="h-full">
                         {isEdit ? (
@@ -154,7 +164,7 @@ function TaskPop({setTaskPop, task}){
                                         Cancel
                                     </button>
                                     <button
-                                        // onClick={}
+                                        onClick={handleEditSave}
                                         className='bg-teal-500 shadow-lg shadow-teal-500/50 rounded-lg px-5 py-1 text-white text-2xl'
                                     >
                                         Save
@@ -206,7 +216,13 @@ function TaskPop({setTaskPop, task}){
                                         </div> 
                                     </div>
                                 </div>
-                                <div className="flex justify-end">
+                                <div className="flex justify-between items-center mx-5 my-2">
+                                    <button
+                                        onClick={handleDeleteClick}
+                                        className='bg-red-400 shadow-lg shadow-red-400/50 rounded-lg px-5 py-1 text-white text-2xl'
+                                    >
+                                        Delete
+                                    </button>
                                     <button
                                         onClick={handleEditClick}
                                         className='bg-teal-500 shadow-lg shadow-teal-500/50 rounded-lg px-5 py-1 text-white text-2xl'
@@ -219,6 +235,7 @@ function TaskPop({setTaskPop, task}){
                     </div>
                 </div>
             </div>
+            {isDelete ? <TaskDeletePop setIsDelete={setIsDelete} /> : null}
         </>
     )
 }

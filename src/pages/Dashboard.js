@@ -6,8 +6,11 @@ import TaskCreation from "../components/TaskCreation";
 import SubjectCreation from "../components/SubjectCreation";
 import TaskPop from "../components/TaskPop";
 import {PiFlagPennantFill} from 'react-icons/pi'
+import {MdOutlinePostAdd} from 'react-icons/md'
+import{RiFolderAddLine} from 'react-icons/ri'
+import {BsThreeDotsVertical} from 'react-icons/bs'
 
-function Dashboard({subjects, sidebarToggle}){
+function Dashboard({subjects}){
     const { logOut, user} = useUserAuth()
     const navigate = useNavigate()
     const [tasks, setTasks] = useState([])
@@ -43,7 +46,8 @@ function Dashboard({subjects, sidebarToggle}){
         setTaskPop(true)
     }
 
-    console.log(taskToView)
+    // console.log(taskToView)
+    console.log(subjects)
 
     useEffect(() => {
         if(!user){
@@ -63,7 +67,21 @@ function Dashboard({subjects, sidebarToggle}){
                 <div className="text-white text-8xl font-bold mx-10 ">
                     Welcome Back!
                 </div>
-                <div className="bg-white bg-opacity-20 shadow-xl m-10 p-5 rounded-xl">
+                <div className="bg-white bg-opacity-20 shadow-xl m-10 px-5 py-2 rounded-xl">
+                    <div className="text-white py-2 flex justify-end items-center">
+                        <button 
+                            onClick={()=>setTcPop(true)}
+                            className="flex justify-between w-[10%] items-center text-lg bg-slate-700 bg-opacity-30 p-2 rounded-xl shadow-md"
+                        >
+                            <MdOutlinePostAdd/>Create Task
+                        </button>
+                        <button 
+                            onClick={()=>setScPop(true)}
+                            className="flex justify-between w-[12%] items-center text-lg bg-slate-700 bg-opacity-30 p-2 mx-5 rounded-xl shadow-md"
+                        >
+                            <RiFolderAddLine />Create Subject
+                        </button>
+                    </div>
                     <div className="grid grid-cols-9 text-2xl text-white font-bold border-b border-white pb-3">
                         <div className="col-span-3 col-start-1">
                             Task
@@ -101,18 +119,17 @@ function Dashboard({subjects, sidebarToggle}){
                                  <div className="col-span-1 col-start-8 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
                                     {task.dueDate.substring(0, 10)}
                                 </div>
-                                <div className="col-span-1 col-start-9 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
-                                    {task.dueDate.substring(11, 16)}
+                                <div className="flex justify-between items-center col-span-1 col-start-9">
+                                    <div className="bg-white bg-opacity-20 shadow-md w-fit h-fit px-2 py-1 rounded-lg">
+                                        {task.dueDate.substring(11, 16)}
+                                    </div>
+                                    {/* <div className="opacity-50 mr-5">
+                                        <BsThreeDotsVertical color="black"/>
+                                    </div> */}
                                 </div>
                             </div>
                         ))}
                 </div>
-                <button onClick={()=>setTcPop(true)}>
-                    Create Task
-                </button>
-                <button onClick={()=>setScPop(true)}>
-                    Create Subject
-                </button>
             </div>
             {tcPop ? <TaskCreation subjects={subjects} setTcPop={setTcPop} /> : null}
             {scPop ? <SubjectCreation setScPop={setScPop} /> : null}

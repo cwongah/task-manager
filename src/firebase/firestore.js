@@ -24,7 +24,6 @@ export async function getTasks(uid, setTask){
                 id: documentSnapshot.id
             })
         }
-        // console.log(allTasks)
         setTask(allTasks)
     })
     return unsubscribe

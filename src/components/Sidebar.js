@@ -13,6 +13,8 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
 
     const { user } = useUserAuth()
 
+    console.log(subjects)
+
     function handleBackClick(){
         setNewSub('')
         setSidebarToggle(false)
