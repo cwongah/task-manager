@@ -5,6 +5,7 @@ import { getTasks } from "../firebase/firestore";
 import TaskCreation from "../components/TaskCreation";
 import SubjectCreation from "../components/SubjectCreation";
 import TaskPop from "../components/TaskPop";
+import {PiFlagPennantFill} from 'react-icons/pi'
 
 function Dashboard({subjects, sidebarToggle}){
     const { logOut, user} = useUserAuth()
@@ -18,11 +19,22 @@ function Dashboard({subjects, sidebarToggle}){
     function setPriorityColor(priority){
         switch(priority){
             case 0:
-                return "bg-red-500 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-5 items-center"
+                return "bg-red-500 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-9 items-center"
             case 1:
-                return "bg-yellow-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-5 items-center"
+                return "bg-yellow-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-9 items-center"
             case 2:
-                return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-5 items-center"
+                return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-9 items-center"
+        }
+    }
+
+    function setPriorityFlagColor(priority){
+        switch(priority){
+            case 0:
+                return "red"
+            case 1:
+                return "yellow"
+            case 2:
+                return "white"
         }
     }
 
@@ -52,39 +64,45 @@ function Dashboard({subjects, sidebarToggle}){
                     Welcome Back!
                 </div>
                 <div className="bg-white bg-opacity-20 shadow-xl m-10 p-5 rounded-xl">
-                    <div className="grid grid-cols-5 text-4xl text-white font-bold border-b border-white pb-3">
-                        <div>
-                            Title
+                    <div className="grid grid-cols-9 text-2xl text-white font-bold border-b border-white pb-3">
+                        <div className="col-span-3 col-start-1">
+                            Task
                         </div>
-                        <div>
+                        <div className="col-span-2 col-start-4">
                             Collection
                         </div>
-                        <div> 
-                            Status
-                        </div>
-                        <div>
+                        <div className="col-span-1 col-start-6"> 
                             Priority
                         </div>
-                        <div>
+                        <div className="col-span-1 col-start-7">
+                            Progress
+                        </div>
+                        <div className="col-span-1 col-start-8">
                             Due Date
+                        </div>
+                        <div className="col-span-1 col-start-9">
+                            Time
                         </div>
                     </div>
                         {tasks.map((task) => (
                             <div key={task.id} className={setPriorityColor(task.priority)} onClick={()=>handleTaskClick(task)}>
-                                <div className="col-span-1 col-start-1 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg overflow-hidden">
+                                <div className="col-span-3 col-start-1 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg overflow-hidden">
                                     {task.title}
                                 </div>
-                                <div className="col-span-1 col-start-2 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
+                                <div className="col-span-2 col-start-4 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
                                     {task.subjectTitle}
                                 </div>
-                                <div className="col-span-1 col-start-3 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
+                                <div className="col-span-1 col-start-6 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 ml-[15%] rounded-3xl">
+                                    <PiFlagPennantFill color={setPriorityFlagColor(task.priority)}/>
+                                </div>
+                                <div className="col-span-1 col-start-7 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
                                     {task.isCompleted ? "Completed" : "In Progress"}
                                 </div>
-                                <div className="col-span-1 col-start-4 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
-                                    {task.urgency}
+                                 <div className="col-span-1 col-start-8 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
+                                    {task.dueDate.substring(0, 10)}
                                 </div>
-                                <div className="col-span-1 col-start- bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
-                                    {task.dueDate}
+                                <div className="col-span-1 col-start-9 bg-white bg-opacity-20 shadow-md w-fit max-w-[75%] h-fit px-2 py-1 rounded-lg">
+                                    {task.dueDate.substring(11, 16)}
                                 </div>
                             </div>
                         ))}

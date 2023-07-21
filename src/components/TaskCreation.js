@@ -12,7 +12,7 @@ function TaskCreation({subjects, setTcPop}){
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [priority, setPriority] = useState(1)
-    const [urgency, setUrgency] = useState('')
+    // const [urgency, setUrgency] = useState('')
     const [subjectId, setSubjectId] = useState('')
     const [subjectTitle, setSubjectTitle] = useState('')
     const [isNewSubject, setIsNewSubject] = useState(false)
@@ -29,7 +29,7 @@ function TaskCreation({subjects, setTcPop}){
     console.log(newSubject)
 
     function handlePriority(e){
-        setUrgency(e.target.value)
+        // setUrgency(e.target.value)
         switch(e.target.value){
             case 'Low Priority':
                 setPriority(2)
@@ -62,7 +62,7 @@ function TaskCreation({subjects, setTcPop}){
             alert('Fields missing!')
             return
         }
-        addTask(user.uid, title, desc, dueDate, priority, urgency, false, subjectId, subjectTitle)
+        addTask(user.uid, title, desc, dueDate, priority, false, subjectId, subjectTitle)
         setTcPop(false)
     }
 
@@ -200,7 +200,7 @@ function TaskCreation({subjects, setTcPop}){
                                         value={desc}
                                         onChange={(e) => setDesc(e.target.value)}
                                         className=" text-white text-xl bg-transparent w-4/5 p-3 my-3 h-2/3 border border-white rounded-lg"
-                                        />
+                                    />
                                     <div className="grid place-items-end w-4/5 my-10">
                                         <button 
                                             type="submit"
