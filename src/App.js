@@ -45,7 +45,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard sidebarToggle={sidebarToggle} subjects={subjects} />} />
             {/* <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} /> */}
             <Route path='/new-subject' element={<SubjectCreation />} />
-            <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} />} />
+            <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} subjects={subjects} />} />
           </Routes>
         </UserAuthContextProvider>
       </Router>

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { FaWindowClose } from 'react-icons/fa'
 import {PiFlagPennantFill} from 'react-icons/pi'
-import { MdCancel } from 'react-icons/md'
-import { AiFillCheckCircle } from 'react-icons/ai'
 import TaskDeletePop from "./TaskDeletePop";
 
 function TaskPop({setTaskPop, task}){

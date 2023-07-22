@@ -8,7 +8,6 @@ import TaskPop from "../components/TaskPop";
 import {PiFlagPennantFill} from 'react-icons/pi'
 import {MdOutlinePostAdd} from 'react-icons/md'
 import{RiFolderAddLine} from 'react-icons/ri'
-import {BsThreeDotsVertical} from 'react-icons/bs'
 
 function Dashboard({subjects}){
     const { logOut, user} = useUserAuth()
@@ -45,9 +44,6 @@ function Dashboard({subjects}){
         setTaskToView(task)
         setTaskPop(true)
     }
-
-    // console.log(taskToView)
-    console.log(subjects)
 
     useEffect(() => {
         if(!user){
@@ -123,9 +119,6 @@ function Dashboard({subjects}){
                                     <div className="bg-white bg-opacity-20 shadow-md w-fit h-fit px-2 py-1 rounded-lg">
                                         {task.dueDate.substring(11, 16)}
                                     </div>
-                                    {/* <div className="opacity-50 mr-5">
-                                        <BsThreeDotsVertical color="black"/>
-                                    </div> */}
                                 </div>
                             </div>
                         ))}
