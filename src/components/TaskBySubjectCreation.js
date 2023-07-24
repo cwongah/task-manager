@@ -38,7 +38,7 @@ function TaskBySubjectCreation({currentSubject, setTcPop}){
             alert('Fields missing!')
             return
         }
-        addTask(user.uid, title, desc, dueDate, priority, false, currentSubject.id, currentSubject.title)
+        addTask(user.uid, title, desc, dueDate, priority, false, currentSubject.id, currentSubject.title, '')
         setTcPop(false)
     }
 

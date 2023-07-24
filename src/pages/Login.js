@@ -11,8 +11,6 @@ function Login({setIsLogin}){
     const { logIn, signUp, user } = useUserAuth()
     const navigate = useNavigate()
 
-    // console.log(isSignup, email, password)
-
     async function handleLoginSubmit(e){
         e.preventDefault()
         // setError('')

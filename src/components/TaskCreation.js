@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useUserAuth } from "../firebase/UserAuthContext";
 import { addTask } from "../firebase/firestore";
 import { addSubject } from "../firebase/firestore";
-import { useNavigate } from "react-router-dom";
 import { FaWindowClose } from 'react-icons/fa'
 import { MdCancel } from 'react-icons/md'
 import { AiFillCheckCircle } from 'react-icons/ai'
@@ -12,12 +11,10 @@ function TaskCreation({subjects, setTcPop}){
     const [desc, setDesc] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [priority, setPriority] = useState(1)
-    // const [urgency, setUrgency] = useState('')
     const [subjectId, setSubjectId] = useState('')
     const [subjectTitle, setSubjectTitle] = useState('')
     const [isNewSubject, setIsNewSubject] = useState(false)
     const [newSubject, setNewSubect] = useState('')
-    const navigate = useNavigate()
 
     const today = new Date();
     const date = today.getFullYear()+'-'+(today.getMonth() + 1 > 9 ? today.getMonth() + 1 : "0"+(today.getMonth() + 1))+'-'+(today.getDate() > 9 ? today.getDate(): "0"+today.getDate());
@@ -26,10 +23,7 @@ function TaskCreation({subjects, setTcPop}){
 
     const { user } = useUserAuth()
 
-    console.log(newSubject)
-
     function handlePriority(e){
-        // setUrgency(e.target.value)
         switch(e.target.value){
             case 'Low Priority':
                 setPriority(2)
@@ -62,7 +56,7 @@ function TaskCreation({subjects, setTcPop}){
             alert('Fields missing!')
             return
         }
-        addTask(user.uid, title, desc, dueDate, priority, false, subjectId, subjectTitle)
+        addTask(user.uid, title, desc, dueDate, priority, false, subjectId, subjectTitle, '')
         setTcPop(false)
     }
 
@@ -74,7 +68,6 @@ function TaskCreation({subjects, setTcPop}){
         }
         setIsNewSubject(false)
         addSubject(user.uid, newSubject)
-        // navigate('/dashboard')
     }
 
     useEffect(()=>{

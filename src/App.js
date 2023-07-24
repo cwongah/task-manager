@@ -1,10 +1,6 @@
-// import logo from './logo.svg';
-// import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './pages/Login';
-// import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
-// import TaskCreation from './components/TaskCreation';
 import SubjectCreation from './components/SubjectCreation';
 import SubjectView from './pages/SubjectView';
 import Navbar from './components/Navbar';
@@ -18,12 +14,10 @@ function App() {
   const [currentSubject, setCurrentSubject] = useState({})
   const [isLogin, setIsLogin] = useState(false)
   const [subjects, setSubjects] = useState([])
-
-  console.log(sidebarToggle)
+  const [isEdit, setIsEdit] = useState(false)
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-[#7AE6C5] via-indigo-600 to-purple-800'>
-      {/* bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-800 */}
       <Router>
         <UserAuthContextProvider>
           {isLogin ? 
@@ -41,11 +35,8 @@ function App() {
           <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} setIsLogin={setIsLogin} />
           <Routes>
             <Route path='/' element={<Login setIsLogin={setIsLogin} />} />
-            {/* <Route path='/signup' element={<Signup />} /> */}
-            <Route path='/dashboard' element={<Dashboard sidebarToggle={sidebarToggle} subjects={subjects} />} />
-            {/* <Route path='/new-task' element={<TaskCreation subjects={subjects} setSubjects={setSubjects} />} /> */}
-            <Route path='/new-subject' element={<SubjectCreation />} />
-            <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} subjects={subjects} />} />
+            <Route path='/dashboard' element={<Dashboard sidebarToggle={sidebarToggle} subjects={subjects} isEdit={isEdit} setIsEdit={setIsEdit} />} />
+            <Route path='/subject/:id' element={<SubjectView currentSubject={currentSubject} subjects={subjects} isEdit={isEdit} setIsEdit={setIsEdit} />} />
           </Routes>
         </UserAuthContextProvider>
       </Router>

@@ -34,8 +34,8 @@ function Navbar({setSidebarToggle, setIsLogin}){
                         :
                         null
                     }
-                    <div className=" text-3xl text-white mx-auto drop-shadow-2xl">
-                        Task Manager
+                    <div className=" text-3xl text-white font-bold mx-auto drop-shadow-2xl">
+                        TaskHarmony
                     </div>
                     {user ? 
                         <div className="flex items-center">

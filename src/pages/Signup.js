@@ -17,7 +17,6 @@ function Signup() {
             navigate('/')
         } catch(err){
             // setError(err.message)
-            // console.log(err.message)
             alert(err.message)
         }
     }

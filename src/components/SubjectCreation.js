@@ -22,7 +22,7 @@ function SubjectCreation({setScPop}){
 
     return(
         <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center">
-            <div className="h-1/5 w-1/4 bg-white bg-opacity-30 rounded-lg p-6 max-w-6xl">
+            <div className="h-fit w-fit bg-white bg-opacity-30 rounded-lg p-6 max-w-6xl">
                 <div className="text-white text-3xl font-bold border-b border-white mb-12 pb-1 flex justify-between items-center">
                     <div>
                         New Collection?

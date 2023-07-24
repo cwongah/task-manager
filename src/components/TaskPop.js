@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { FaWindowClose } from 'react-icons/fa'
 import {PiFlagPennantFill} from 'react-icons/pi'
 import TaskDeletePop from "./TaskDeletePop";
+import { updateTask } from "../firebase/firestore";
 
-function TaskPop({setTaskPop, task}){
-    const [isEdit, setIsEdit] = useState(false)
+function TaskPop({setTaskPop, task, isEdit, setIsEdit, subjects}){
     const [editTitle, setEditTitle] = useState(task.title)
     const [editDueDate, setEditDueDate] = useState(task.dueDate)
     const [editPriority, setEditPriority] = useState(task.priority)
     const [editDesc, setEditDesc]  = useState(task.desc)
-    const [editNotes, setEditNotes] = useState('notes')
+    const [editIsCompleted, setEditIsCompleted] = useState(task.isCompleted)
+    const [editNotes, setEditNotes] = useState(task.notes)
+    const [editSubjectId, setEditSubjectId] = useState(task.subjectId)
+    const [editSubjectTitle, setEditSubjectTitle] = useState(task.subjectTitle)
     const [isDelete, setIsDelete] = useState(false)
-
-    console.log(editTitle)
 
     function setPriorityFlagColor(task){
         if(task.isCompleted){
@@ -27,6 +28,7 @@ function TaskPop({setTaskPop, task}){
                 return "white"
         }
     }
+
     function setDDColor(priority){
         switch(priority){
             case 0:
@@ -36,6 +38,38 @@ function TaskPop({setTaskPop, task}){
             case 2:
                 return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl mb-2 px-2 py-1 text-white"
         }
+    }
+
+    function handleEditStatus(e){
+        switch(e.target.value){
+            case "In Progress":
+                setEditPriority(1)
+                setEditIsCompleted(false)
+                break
+            case "Completed":
+                setEditPriority(3)
+                setEditIsCompleted(true)
+                break
+        }
+    }
+
+    function handleEditPriority(e){
+        switch(e.target.value){
+            case "Low Priority":
+                setEditPriority(2)
+                break
+            case "Regular":
+                setEditPriority(1)
+                break
+            case "Urgent":
+                setEditPriority(0)
+                break
+        }
+    }
+
+    function handleSubjectChange(e){
+        setEditSubjectId(subjects.filter(subject => subject.title === e.target.value)[0].id)
+        setEditSubjectTitle(subjects.filter(subject => subject.title === e.target.value)[0].title)
     }
 
     function handleCloseClick(){
@@ -57,17 +91,20 @@ function TaskPop({setTaskPop, task}){
         setEditDueDate(task.dueDate)
         setEditPriority(task.priority)
         setEditDesc(task.desc)
-        setEditNotes('notes')
+        setEditNotes(task.notes)
+        setEditIsCompleted(task.isCompleted)
     }
 
     function handleEditSave(){
         setTaskPop(false)
+        setIsEdit(false)
+        updateTask(task.id, task.uid, editTitle, editDesc, editDueDate, editPriority, editIsCompleted, editSubjectId, editSubjectTitle, editNotes)
     }
 
         return(
         <>
             <div className={isDelete ? "fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center blur-md" : "fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center"}>
-                <div className="h-2/3 bg-white bg-opacity-30 rounded-lg p-6 max-w-6xl w-full lg:w-4/5">
+                <div className="h-fill bg-white bg-opacity-30 rounded-lg p-6 max-w-6xl w-full lg:w-4/5">
                     <div className="h-full">
                         {isEdit ? (
                             <div>
@@ -87,39 +124,59 @@ function TaskPop({setTaskPop, task}){
                                                 onChange={(e) => setEditDueDate(e.target.value)}
                                                 className="bg-transparent text-white text-md border-b border-white pb-1 mb-2"
                                             />
-                                            <div className="flex justify-between items-center ">
-                                                <select 
-                                                    onChange={(e)=>setEditPriority(e.target.value)}
-                                                    className="text-white text-md border-b border-white pb-1 bg-transparent"
-                                                >
-                                                    <option disabled selected>
-                                                        Priority
-                                                    </option>
-                                                    <option>
-                                                        Low Priority
-                                                    </option>
-                                                    <option>
-                                                        Regular
-                                                    </option>
-                                                    <option>
-                                                        Urgent
-                                                    </option>
-                                                </select>
-                                                <select 
-                                                    onChange={(e)=>setEditPriority(e.target.value)}
-                                                    className="text-white text-md border-b border-white pb-1 bg-transparent"
-                                                >
-                                                    <option disabled selected>
-                                                        Status
-                                                    </option>
-                                                    <option>
-                                                        In Progress
-                                                    </option>
-                                                    <option>
-                                                        Completed
-                                                    </option>
-                                                </select>
-                                            </div>
+                                            {!editIsCompleted ? 
+                                                <div className="flex justify-between items-center ">
+                                                    <select 
+                                                        onChange={(e)=>handleEditStatus(e)}
+                                                        className="text-white text-md border-b border-white pb-1 bg-transparent"
+                                                    >
+                                                        <option disabled selected>
+                                                            Status
+                                                        </option>
+                                                        <option>
+                                                            In Progress
+                                                        </option>
+                                                        <option>
+                                                            Completed
+                                                        </option>
+                                                    </select>
+                                                    <select 
+                                                        onChange={(e)=>handleEditPriority(e)}
+                                                        className="text-white text-md border-b border-white pb-1 bg-transparent"
+                                                    >
+                                                        <option disabled selected>
+                                                            Priority
+                                                        </option>
+                                                        <option>
+                                                            Low Priority
+                                                        </option>
+                                                        <option>
+                                                            Regular
+                                                        </option>
+                                                        <option>
+                                                            Urgent
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                :
+                                                <div className="flex justify-between items-center ">
+                                                    <select 
+                                                        onChange={(e)=>handleEditStatus(e)}
+                                                        className="text-white text-md border-b border-white pb-1 bg-transparent"
+                                                    >
+                                                        <option disabled selected>
+                                                            Status
+                                                        </option>
+                                                        <option>
+                                                            In Progress
+                                                        </option>
+                                                        <option>
+                                                            Completed
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                            }
                                         </div>
                                     </div>
                                     <div className="m-5">
@@ -128,9 +185,24 @@ function TaskPop({setTaskPop, task}){
                                         </button>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 mt-10 h-[24rem]">
+                                <select 
+                                    onChange={(e)=>handleSubjectChange(e)}
+                                    className="text-white text-3xl border-b border-white mx-5 pb-1 w-[40%] bg-transparent"
+                                >
+                                    <option disabled selected>
+                                        {task.subjectTitle}
+                                    </option>
+                                    {subjects.map((subject)=>{
+                                        return(
+                                            <option key={subject.id}>
+                                                {subject.title}
+                                            </option>
+                                        ) 
+                                    })}
+                                </select>
+                                <div className="grid grid-cols-2 mt-5 h-[28rem]">
                                     <div className="col-span-1 mx-5 w-4/5">
-                                        <div className="text-white text-3xl border-b border-white pb-1">
+                                        <div className="text-white text-3xl border-b border-white pl-1 pb-1">
                                             Description
                                         </div>
                                         <textarea
@@ -142,7 +214,7 @@ function TaskPop({setTaskPop, task}){
                                         />
                                     </div>
                                     <div className="col-span-1 w-4/5 mx-5">
-                                        <div className="text-white text-3xl border-b border-white pb-1">
+                                        <div className="text-white text-3xl border-b border-white pl-1 pb-1">
                                             Notes
                                         </div>
                                         <textarea
@@ -196,21 +268,24 @@ function TaskPop({setTaskPop, task}){
                                         </button>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 mt-10 max-h-96 ">
+                                <div className="text-white text-3xl font-bold ml-5 w-fit">
+                                    {task.subjectTitle}
+                                </div>
+                                <div className="grid grid-cols-2 mt-5 h-96 max-h-96 ">
                                     <div className="col-span-1 mx-5 w-4/5 h-2/3">
                                         <div className="text-white text-3xl border-b border-white pb-1">
                                             Description
                                         </div>
-                                        <div className="text-xl text-white h-full max-h-96 mt-5 mb-2 mx-4 pb-1 overflow-y-scroll">
-                                            {task.desc} Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. Notes will go here. 
+                                        <div className="text-xl text-white h-full max-h-96 mt-5 mb-2 mx-4 pb-1 overflow-y-auto">
+                                            {task.desc} 
                                         </div>
                                     </div>
                                     <div className="col-span-1 h-2/3 w-4/5 mx-5">
                                         <div className="text-white text-3xl border-b border-white pb-1">
-                                            Notes
+                                            Notes 
                                         </div>
-                                        <div className="text-xl text-white h-full max-h-96 mt-5 mb-2 mx-4 pb-1 overflow-y-scroll">
-                                            hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello 
+                                        <div className="text-xl text-white h-full max-h-96 mt-5 mb-2 mx-4 pb-1 overflow-y-auto">
+                                            {task.notes ? task.notes : "No notes yet"}
                                         </div> 
                                     </div>
                                 </div>
@@ -233,7 +308,7 @@ function TaskPop({setTaskPop, task}){
                     </div>
                 </div>
             </div>
-            {isDelete ? <TaskDeletePop setIsDelete={setIsDelete} /> : null}
+            {isDelete ? <TaskDeletePop setIsDelete={setIsDelete} setTaskPop={setTaskPop} task={task} /> : null}
         </>
     )
 }

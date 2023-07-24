@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc, snapshotEqual, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, documentId, getDocs, onSnapshot, orderBy, query, setDoc, snapshotEqual, where } from 'firebase/firestore'
 
 const TASKS_COLLECTION = 'tasks'
 const SUBJECTS_COLLECTION = 'subjects'
@@ -8,8 +8,8 @@ export function addSubject(uid, title){
     addDoc(collection(db, SUBJECTS_COLLECTION), {uid, title})
 }
 
-export function addTask(uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle){
-    addDoc(collection(db, TASKS_COLLECTION), {uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle})
+export function addTask(uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle, notes){
+    addDoc(collection(db, TASKS_COLLECTION), {uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle, notes})
 }
 
 export async function getTasks(uid, setTask){
@@ -59,4 +59,16 @@ export async function getTasksBySubject(sid, setTasksBySubject){
         setTasksBySubject(allTasksBySubject)
     })
     return unsubscribe
+}
+
+export function updateTask(docId, uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle, notes){
+    setDoc(doc(db, TASKS_COLLECTION, docId), {uid, title, desc, dueDate, priority, isCompleted, subjectId, subjectTitle, notes})
+}
+
+export function deleteTask(id){
+    deleteDoc(doc(db, TASKS_COLLECTION, id))
+}
+
+export function deleteSubject(id){
+    deleteDoc(doc(db, SUBJECTS_COLLECTION, id))
 }
