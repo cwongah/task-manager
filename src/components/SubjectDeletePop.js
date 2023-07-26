@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaWindowClose } from 'react-icons/fa'
 import {FiAlertOctagon} from 'react-icons/fi'
 import { deleteTask, deleteSubject } from "../firebase/firestore";

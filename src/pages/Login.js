@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useUserAuth } from '../firebase/UserAuthContext'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ function Login({setIsLogin}){
     const [password, setPassword] = useState('')
     const [isSignup, setIsSignup] = useState(false)
     // const [error, setError] = useState('')
-    const { logIn, signUp, user } = useUserAuth()
+    const { logIn, signUp } = useUserAuth()
     const navigate = useNavigate()
 
     async function handleLoginSubmit(e){

@@ -31,6 +31,8 @@ function SubjectView({currentSubject, subjects, isEdit, setIsEdit}){
                 return "bg-yellow-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-7 items-center"
             case 2:
                 return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-7 items-center"
+            default:
+                return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl my-5 py-2 pl-2 grid grid-cols-7 items-center"
         }
     }
 
@@ -45,6 +47,8 @@ function SubjectView({currentSubject, subjects, isEdit, setIsEdit}){
                 return "yellow"
             case 2:
                 return "white"
+            default:
+                return "white"
         }
     }
 
@@ -57,13 +61,14 @@ function SubjectView({currentSubject, subjects, isEdit, setIsEdit}){
         if(!user){
             navigate('/')
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect( () => {
         if(user){
             getTasksBySubject(currentSubject.id, setTasksBySubject)
         }
-    }, [currentSubject])
+    }, [currentSubject, user])
     
     return(
         <>

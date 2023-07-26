@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import SubjectCreation from './components/SubjectCreation';
 import SubjectView from './pages/SubjectView';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';

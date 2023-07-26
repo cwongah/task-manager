@@ -44,6 +44,7 @@ function TaskBySubjectCreation({currentSubject, setTcPop}){
 
     useEffect(()=>{
         setDueDate(dateTime)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return(

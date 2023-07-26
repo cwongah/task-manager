@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { FaWindowClose } from 'react-icons/fa'
 import {FiAlertOctagon} from 'react-icons/fi'
 import { deleteTask } from "../firebase/firestore";

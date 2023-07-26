@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { addDoc, collection, deleteDoc, doc, documentId, getDocs, onSnapshot, orderBy, query, setDoc, snapshotEqual, where } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'
 
 const TASKS_COLLECTION = 'tasks'
 const SUBJECTS_COLLECTION = 'subjects'

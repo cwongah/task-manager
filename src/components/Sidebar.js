@@ -48,6 +48,7 @@ function Sidebar({sidebarToggle, setSidebarToggle, setCurrentSubject, subjects, 
         if(user){
             getSubjects(user.uid, setSubjects)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     return (

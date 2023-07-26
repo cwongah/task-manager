@@ -26,6 +26,8 @@ function TaskPop({setTaskPop, task, isEdit, setIsEdit, subjects}){
                 return "yellow"
             case 2:
                 return "white"
+            default:
+                return "white"
         }
     }
 
@@ -37,6 +39,9 @@ function TaskPop({setTaskPop, task, isEdit, setIsEdit, subjects}){
                 return "bg-yellow-300 bg-opacity-50 shadow-lg rounded-xl mb-2 px-2 py-1 text-white"
             case 2:
                 return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl mb-2 px-2 py-1 text-white"
+            default:
+                return "bg-slate-300 bg-opacity-50 shadow-lg rounded-xl mb-2 px-2 py-1 text-white"
+
         }
     }
 
@@ -50,6 +55,9 @@ function TaskPop({setTaskPop, task, isEdit, setIsEdit, subjects}){
                 setEditPriority(3)
                 setEditIsCompleted(true)
                 break
+            default:
+                setEditPriority(task.priority)
+                setEditIsCompleted(task.isCompleted)
         }
     }
 
@@ -64,6 +72,8 @@ function TaskPop({setTaskPop, task, isEdit, setIsEdit, subjects}){
             case "Urgent":
                 setEditPriority(0)
                 break
+            default:
+                setEditPriority(task.priority)
         }
     }
 
